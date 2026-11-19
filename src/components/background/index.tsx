@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { PureComponent, createRef } from 'react';
 import { loadImages } from '../../utils/load-images';
-import { Position, configurePosition, createPosition } from './positions';
+import { Link, Particle, Point, createLinks, createParticles, linkDistance, magnetRadius, stepParticle } from './network';
 import styles from './index.module.scss';
 
 export interface BackgroundProps {
@@ -43,9 +43,11 @@ export class Background extends PureComponent<Partial<BackgroundProps>, Backgrou
   private canvas = createRef<HTMLCanvasElement>();
   private canvasContext: CanvasRenderingContext2D | null = null;
   private images: HTMLImageElement[] = [];
-  private positions: Position[] = [];
+  private particles: Particle[] = [];
+  private pointer: Point | undefined;
   private frame: number | undefined;
-  private timer: number | undefined;
+  private lastTime: number | undefined;
+  private fade = 0;
 
   private get settings() {
     return { ...Background.defaultProps, ...this.props };
@@ -61,6 +63,8 @@ export class Background extends PureComponent<Partial<BackgroundProps>, Backgrou
     }
 
     window.addEventListener('resize', this.onResize);
+    window.addEventListener('pointermove', this.onPointerMove);
+    window.addEventListener('pointerout', this.onPointerOut);
     this.onResize();
     this.canvasContext = this.canvas.current?.getContext('2d') ?? null;
     this.getImages();
@@ -82,6 +86,8 @@ export class Background extends PureComponent<Partial<BackgroundProps>, Backgrou
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('pointermove', this.onPointerMove);
+    window.removeEventListener('pointerout', this.onPointerOut);
     this.clear();
     this.cancel();
   }
@@ -91,10 +97,7 @@ export class Background extends PureComponent<Partial<BackgroundProps>, Backgrou
       cancelAnimationFrame(this.frame);
       this.frame = undefined;
     }
-    if (this.timer !== undefined) {
-      clearTimeout(this.timer);
-      this.timer = undefined;
-    }
+    this.lastTime = undefined;
   };
 
   private clear = () => {
@@ -102,28 +105,31 @@ export class Background extends PureComponent<Partial<BackgroundProps>, Backgrou
     this.canvasContext?.clearRect(0, 0, width, height);
   };
 
-  private animate = () => {
-    this.clear();
-    this.drawImages();
-    this.timer = window.setTimeout(() => {
-      this.frame = requestAnimationFrame(this.animate);
-    }, 1000 / this.settings.animationFPS);
-  };
+  private animate = (time = performance.now()) => {
+    const elapsed = Math.min(time - (this.lastTime ?? time), 50);
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const { imageSize, speed } = this.settings;
+    const { width, height } = this.state;
+    const field = {
+      width,
+      height,
+      margin: imageSize,
+      speed,
+      dt: reducedMotion ? 0 : elapsed / (1000 / 30),
+      pointer: reducedMotion ? undefined : this.pointer,
+    };
 
-  private fadeIn = () => {
-    const { fadeFPS, fadeStep } = this.settings;
-    setTimeout(() => {
-      const context = this.canvasContext;
-      if (!context || context.globalAlpha >= 1) return;
-      requestAnimationFrame(() => {
-        context.globalAlpha += fadeStep;
-        this.fadeIn();
-      });
-    }, 1000 / fadeFPS);
+    this.lastTime = time;
+    this.fade = Math.min(1, this.fade + elapsed / 2500);
+    this.particles = this.particles.map((particle) => stepParticle(particle, field));
+    this.clear();
+    this.drawLinks();
+    this.drawImages();
+    this.frame = requestAnimationFrame(this.animate);
   };
 
   private update = () => {
-    this.getPositions();
+    this.getParticles();
     this.cancel();
     this.animate();
   };
@@ -134,39 +140,71 @@ export class Background extends PureComponent<Partial<BackgroundProps>, Backgrou
         this.images = images;
         if (this.canvasContext) {
           this.canvasContext.imageSmoothingQuality = 'high';
-          this.canvasContext.globalAlpha = 0;
         }
+        this.fade = 0;
         this.update();
-        this.fadeIn();
       })
       .catch((source) => console.warn(`couldn't load ${source}`));
   };
 
-  private getPositions = () => {
-    const { imageSize, speed, speedTolerance } = this.settings;
+  private getParticles = () => {
+    const { imageSize } = this.settings;
     const { width, height } = this.state;
-    const options = { width, height, imageSize, speed, speedTolerance };
 
-    this.positions =
-      this.images.length !== this.positions.length
-        ? this.images.map(() => createPosition(options))
-        : this.positions.map((position) => configurePosition(position, options));
+    this.particles =
+      this.particles.length === this.images.length
+        ? this.particles
+        : createParticles({ width, height, margin: imageSize, speed: 0, dt: 0 }, this.images.length);
+  };
+
+  private strokeLinks = (links: Link[], alpha: number) =>
+    links.forEach(({ from, to, strength }) => {
+      const context = this.canvasContext;
+      if (!context) return;
+      context.globalAlpha = this.fade * alpha * strength;
+      context.beginPath();
+      context.moveTo(from.x, from.y);
+      context.lineTo(to.x, to.y);
+      context.stroke();
+    });
+
+  private drawLinks = () => {
+    const { width, height } = this.state;
+    const { pointer } = this;
+    const context = this.canvasContext;
+
+    if (!context) return;
+    context.strokeStyle = '#fff';
+    context.lineWidth = 1;
+    this.strokeLinks(createLinks(this.particles, linkDistance(width, height, this.particles.length)), 0.35);
+    this.strokeLinks(
+      pointer
+        ? createLinks([pointer, ...this.particles], magnetRadius).filter(({ from }) => from === pointer)
+        : [],
+      0.8
+    );
   };
 
   private drawImages = () => {
     const { imageSize } = this.settings;
+    const context = this.canvasContext;
 
-    this.images
-      .map((image, index) => ({
-        image,
-        x: this.positions[index].x - imageSize,
-        y: this.positions[index].y - imageSize,
-        width: imageSize,
-        height: imageSize / (image.width / image.height),
-      }))
-      .forEach(({ image, x, y, width, height }) =>
-        this.canvasContext?.drawImage(image, x, y, width, height)
-      );
+    this.particles.forEach(({ x, y, depth }, index) => {
+      const image = this.images[index];
+      const size = imageSize * depth;
+      if (!context || !image) return;
+      context.globalAlpha = this.fade * (0.4 + 0.6 * depth);
+      context.drawImage(image, x - size / 2, y - size / 2, size, size / (image.width / image.height));
+    });
+  };
+
+  private onPointerMove = ({ clientX, clientY }: PointerEvent) => {
+    const { left, top } = this.component.current?.getBoundingClientRect() ?? { left: 0, top: 0 };
+    this.pointer = { x: clientX - left, y: clientY - top };
+  };
+
+  private onPointerOut = ({ relatedTarget }: PointerEvent) => {
+    this.pointer = relatedTarget ? this.pointer : undefined;
   };
 
   private onResize = () => {
