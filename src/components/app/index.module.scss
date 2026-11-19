@@ -148,9 +148,7 @@ $text-base: #fff;
         -webkit-transform: translateY(0);
             -ms-transform: translateY(0);
                 transform: translateY(0);
-        -webkit-transition-delay: 0s, .3s, .3s;
-             -o-transition-delay: 0s, .3s, .3s;
-                transition-delay: 0s, .3s, .3s;
+        transition-delay: 0s, .3s, 0s;
       }
 
       .contactPanelToggle {
@@ -185,20 +183,10 @@ $text-base: #fff;
       -webkit-transform-origin: bottom;
           -ms-transform-origin: bottom;
               transform-origin: bottom;
-      -webkit-transition-timing-function: cubic-bezier(0.65, 0.05, 0.36, 1);
-           -o-transition-timing-function: cubic-bezier(0.65, 0.05, 0.36, 1);
-              transition-timing-function: cubic-bezier(0.65, 0.05, 0.36, 1);
-      -webkit-transition-duration: .6s;
-           -o-transition-duration: .6s;
-              transition-duration: .6s;
-      -webkit-transition-property: height, opacity, -webkit-transform;
-      transition-property: height, opacity, -webkit-transform;
-      -o-transition-property: height, opacity, transform;
+      transition-timing-function: cubic-bezier(0.65, 0.05, 0.36, 1);
+      transition-duration: .6s;
       transition-property: height, opacity, transform;
-      transition-property: height, opacity, transform, -webkit-transform;
-      -webkit-transition-delay: .1s, 0s, 0s;
-           -o-transition-delay: .1s, 0s, 0s;
-              transition-delay: .1s, 0s, 0s;
+      transition-delay: .1s, 0s, .1s;
       overflow: hidden;
       will-change: height, opacity, transform;
 
