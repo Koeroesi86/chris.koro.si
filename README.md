@@ -53,7 +53,7 @@ The deploy job runs in the `production` environment, which only accepts the `mai
 | Variable | `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_PATH` |
 | Secret | `DEPLOY_SSH_KEY`, `DEPLOY_KNOWN_HOSTS` |
 
-Releases are in `<DEPLOY_PATH>/build.<timestamp>`, the history is in `<DEPLOY_PATH>/.deploy-log`. To roll back by hand, point the `build` symlink at an earlier release (or use the action's rollback workflow).
+Releases are in `<DEPLOY_PATH>/build.<timestamp>`, the history is in `<DEPLOY_PATH>/.deploy-log`. To roll back by hand, point the `build` symlink at an earlier release (the deploy action also ships a `rollback` sub-action you can wire into a manual workflow).
 
 ## Contributing and checks
 
