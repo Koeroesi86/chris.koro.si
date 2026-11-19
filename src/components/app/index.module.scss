@@ -25,42 +25,17 @@ $text-base: #fff;
     text-shadow: 0 0 15px #000;
     -webkit-backdrop-filter: blur(2px);
             backdrop-filter: blur(2px);
-    background: rgba(
-                    red($background-base),
-                    green($background-base),
-                    blue($background-base),
-                    0.29
-    );
-    border: 14px solid rgba(
-                    red($background-base),
-                    green($background-base),
-                    blue($background-base),
-                    0.13
-    );
-    -webkit-box-shadow: 0 0 20px rgba(
-                    red($highlight-base),
-                    green($highlight-base),
-                    blue($highlight-base),
-                    0.3
-    );
-            box-shadow: 0 0 20px rgba(
-                    red($highlight-base),
-                    green($highlight-base),
-                    blue($highlight-base),
-                    0.3
-    );
+    background: rgba($background-base, 0.29);
+    border: 14px solid rgba($background-base, 0.13);
+    -webkit-box-shadow: 0 0 20px rgba($highlight-base, 0.3);
+            box-shadow: 0 0 20px rgba($highlight-base, 0.3);
 
     .imageMe {
       width: 100px;
       height: 100px;
       margin-top: 20px;
       border-radius: 50%;
-      border: 4px solid rgba(
-              red($background-base),
-              green($background-base),
-              blue($background-base),
-              0.4
-      );
+      border: 4px solid rgba($background-base, 0.4);
     }
 
     .headerTitle {
@@ -101,24 +76,14 @@ $text-base: #fff;
       padding: 0 20px;
       color: #fff;
       text-decoration: none;
-      border: 2px solid rgba(
-                      red($highlight-base),
-                      green($highlight-base),
-                      blue($highlight-base),
-                      0.8
-      );
+      border: 2px solid rgba($highlight-base, 0.8);
       -webkit-transition: all .2s ease-in-out;
       -o-transition: all .2s ease-in-out;
       transition: all .2s ease-in-out;
 
       &:hover {
         border-color: #ffffff;
-        background-color: rgba(
-                        red($highlight-base),
-                        green($highlight-base),
-                        blue($highlight-base),
-                        0.1
-        );
+        background-color: rgba($highlight-base, 0.1);
       }
 
       img {
@@ -224,27 +189,12 @@ $text-base: #fff;
       -webkit-transition: all .4s ease-in-out;
       -o-transition: all .4s ease-in-out;
       transition: all .4s ease-in-out;
-      color: rgba(
-                      red($text-base),
-                      green($text-base),
-                      blue($text-base),
-                      0.71
-      );
+      color: rgba($text-base, 0.71);
       will-change: transform, background-color, color;
 
       &:hover {
-        background: rgba(
-                        red($background-base),
-                        green($background-base),
-                        blue($background-base),
-                        0.43
-        );
-        color: rgba(
-                        red($text-base),
-                        green($text-base),
-                        blue($text-base),
-                        1
-        );
+        background: rgba($background-base, 0.43);
+        color: rgba($text-base, 1);
       }
 
       .icon {
@@ -262,32 +212,17 @@ $text-base: #fff;
 
   /* Track */
   ::-webkit-scrollbar-track {
-    background: rgba(
-                    red($highlight-base),
-                    green($highlight-base),
-                    blue($highlight-base),
-                    0.1
-    );
+    background: rgba($highlight-base, 0.1);
   }
 
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: rgba(
-                    red($background-base),
-                    green($background-base),
-                    blue($background-base),
-                    0.6
-    );
+    background: rgba($background-base, 0.6);
   }
 
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(
-                    red($background-base),
-                    green($background-base),
-                    blue($background-base),
-                    0.8
-    );
+    background: rgba($background-base, 0.8);
   }
 }
 
