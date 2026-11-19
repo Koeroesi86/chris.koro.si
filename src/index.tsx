@@ -1,4 +1,4 @@
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faLinkedin, faSkype } from '@fortawesome/free-brands-svg-icons';
 import { App } from './components/app';
@@ -20,7 +20,7 @@ const contacts = [
   { icon: faSkype, text: 'koeroesi86' },
 ];
 
-render(
+createRoot(document.getElementById('root')!).render(
   <App
     logos={logos}
     hero="Krisztian Korosi"
@@ -28,8 +28,7 @@ render(
     links={links}
     contacts={contacts}
     backgroundImage={backgroundImage}
-  />,
-  document.getElementById('root')
+  />
 );
 
 unregisterServiceWorker();

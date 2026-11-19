@@ -14,16 +14,16 @@
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
-    "@fortawesome/react-fontawesome": "^0.1.19",
+    "@fortawesome/react-fontawesome": "^3.5.0",
     "alea-random": "^6.0.4",
     "classnames": "^2.5.1",
     "react": "^19.3.1",
-    "react-dom": "^17.0.2"
+    "react-dom": "^19.3.1"
   },
   "devDependencies": {
     "@koeroesi86/node-webserver-cli": "^26.11.43891020004-master",
     "@types/react": "^19.3.0",
-    "@types/react-dom": "^17.0.26",
+    "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.3.0",
     "sass": "^1.108.2",
     "typescript": "^7.0.2",
