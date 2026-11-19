@@ -14,7 +14,7 @@ Personal site (chris.koro.si): React 17 + TypeScript + Vite, SCSS modules, deplo
 - Files kebab-case, components/types PascalCase, variables and functions camelCase.
 - No nested conditions or loops; chain native array methods; no single-use variables unless they add meaning.
 - Styles are SCSS modules (`index.module.scss`); the only global stylesheet is `src/clients/default/index.scss`.
-- The icons are passed to `FontAwesomeIcon` as imported objects. Keep `@fortawesome/*` packages on the same major version (6.x), otherwise their types stop matching.
+- The icons are passed to `FontAwesomeIcon` as imported objects. Keep `@fortawesome/*` packages on the same major version (7.x), otherwise their types stop matching.
 
 ## Things that are easy to break
 
