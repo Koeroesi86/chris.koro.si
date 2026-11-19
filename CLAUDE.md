@@ -19,7 +19,7 @@ Personal site (chris.koro.si): React 17 + TypeScript + Vite, SCSS modules, deplo
 ## Things that are easy to break
 
 - `src/components/background`: logos are free-drifting particles (`network.ts`) that link to close neighbours with fading lines; the pointer acts as a magnet (pulls logos in, repels them when too close). Motion stops under `prefers-reduced-motion`.
-- Logos are loaded with `import.meta.glob` from `src/assets/images/logos/*.svg` (28 files, order = file name).
+- Logos are loaded with `import.meta.glob` from `src/assets/images/logos/*.svg` (42 files, order = file name).
 - `index.html` uses root-relative paths (`/favicon/...`, `/manifest.json`); the files live in `public/`.
 - `serverConfig.js` is CommonJS and read by the web server on the VPS (root: `build`). Do not set `"type": "module"` in `package.json`.
 - `nws.config.cjs` is only for local serving of `dist/` (port 8080).
