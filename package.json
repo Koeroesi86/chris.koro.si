@@ -17,12 +17,12 @@
     "@fortawesome/react-fontawesome": "^0.1.19",
     "alea-random": "^6.0.4",
     "classnames": "^2.5.1",
-    "react": "^17.0.2",
+    "react": "^19.3.1",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@koeroesi86/node-webserver-cli": "^26.11.43891020004-master",
-    "@types/react": "^17.0.93",
+    "@types/react": "^19.3.0",
     "@types/react-dom": "^17.0.26",
     "@vitejs/plugin-react": "^6.3.0",
     "sass": "^1.108.2",
