@@ -1,0 +1,32 @@
+{
+  "name": "chris.koro.si",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Site of Krisztian Korosi",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "serve": "nws-cli --config nws.config.cjs",
+    "start": "npm run build && npm run serve"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
+    "@fortawesome/free-brands-svg-icons": "^6.7.2",
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@fortawesome/react-fontawesome": "^0.1.19",
+    "alea-random": "^6.0.4",
+    "classnames": "^2.5.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@koeroesi86/node-webserver-cli": "^26.11.43891020004-master",
+    "@types/react": "^17.0.93",
+    "@types/react-dom": "^17.0.26",
+    "@vitejs/plugin-react": "^6.3.0",
+    "sass": "^1.108.2",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8"
+  }
+}

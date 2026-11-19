@@ -1,0 +1,334 @@
+$background-base: #000;
+$highlight-base: #fff;
+$text-base: #fff;
+
+.App {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 100vh;
+  text-align: center;
+  overflow: hidden;
+  overflow-y: auto;
+
+  .header {
+    position: relative;
+    z-index: 10;
+    color: #fff;
+    text-shadow: 0 0 15px #000;
+    -webkit-backdrop-filter: blur(2px);
+            backdrop-filter: blur(2px);
+    background: rgba(
+                    red($background-base),
+                    green($background-base),
+                    blue($background-base),
+                    0.29
+    );
+    border: 14px solid rgba(
+                    red($background-base),
+                    green($background-base),
+                    blue($background-base),
+                    0.13
+    );
+    -webkit-box-shadow: 0 0 20px rgba(
+                    red($highlight-base),
+                    green($highlight-base),
+                    blue($highlight-base),
+                    0.3
+    );
+            box-shadow: 0 0 20px rgba(
+                    red($highlight-base),
+                    green($highlight-base),
+                    blue($highlight-base),
+                    0.3
+    );
+
+    .imageMe {
+      width: 100px;
+      height: 100px;
+      margin-top: 20px;
+      border-radius: 50%;
+      border: 4px solid rgba(
+              red($background-base),
+              green($background-base),
+              blue($background-base),
+              0.4
+      );
+    }
+
+    .headerTitle {
+      margin: 0 0 12px 0;
+      padding: 0 20px;
+      font-size: 60px;
+      font-weight: 100;
+    }
+
+    .headerIntro {
+      font-size: large;
+      margin: 0 0 12px 0;
+      padding: 0 20px;
+      font-weight: 100;
+    }
+
+    .links {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: row;
+              flex-direction: row;
+      -webkit-box-pack: space-evenly;
+          -ms-flex-pack: space-evenly;
+              justify-content: space-evenly;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+      padding: 0 20px;
+    }
+
+    .link {
+      display: inline-block;
+      line-height: 45px;
+      height: 45px;
+      margin-top: 12px;
+      padding: 0 20px;
+      color: #fff;
+      text-decoration: none;
+      border: 2px solid rgba(
+                      red($highlight-base),
+                      green($highlight-base),
+                      blue($highlight-base),
+                      0.8
+      );
+      -webkit-transition: all .2s ease-in-out;
+      -o-transition: all .2s ease-in-out;
+      transition: all .2s ease-in-out;
+
+      &:hover {
+        border-color: #ffffff;
+        background-color: rgba(
+                        red($highlight-base),
+                        green($highlight-base),
+                        blue($highlight-base),
+                        0.1
+        );
+      }
+
+      img {
+        position: relative;
+        top: 1px;
+        display: inline-block;
+        margin-right: 12px;
+        height: 16px;
+        width: auto;
+      }
+
+      .icon {
+        margin-right: 12px;
+      }
+
+      .text {
+        margin-left: 0;
+      }
+    }
+  }
+
+  &.contactOpen {
+    .contactPanel {
+      .contactPanelDetails {
+        height: 150px;
+        opacity: 1;
+        -webkit-transform: translateY(0);
+            -ms-transform: translateY(0);
+                transform: translateY(0);
+        -webkit-transition-delay: 0s, .3s, .3s;
+             -o-transition-delay: 0s, .3s, .3s;
+                transition-delay: 0s, .3s, .3s;
+      }
+
+      .contactPanelToggle {
+        .icon {
+          -webkit-transform: rotate(180deg);
+              -ms-transform: rotate(180deg);
+                  transform: rotate(180deg);
+        }
+      }
+    }
+  }
+
+  .contactPanel {
+    margin-top: 20px;
+
+    .contactPanelDetails {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+              flex-direction: column;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      height: 0;
+      opacity: 0;
+      -webkit-transform: translateY(100%);
+          -ms-transform: translateY(100%);
+              transform: translateY(100%);
+      -webkit-transform-origin: bottom;
+          -ms-transform-origin: bottom;
+              transform-origin: bottom;
+      -webkit-transition-timing-function: cubic-bezier(0.65, 0.05, 0.36, 1);
+           -o-transition-timing-function: cubic-bezier(0.65, 0.05, 0.36, 1);
+              transition-timing-function: cubic-bezier(0.65, 0.05, 0.36, 1);
+      -webkit-transition-duration: .6s;
+           -o-transition-duration: .6s;
+              transition-duration: .6s;
+      -webkit-transition-property: height, opacity, -webkit-transform;
+      transition-property: height, opacity, -webkit-transform;
+      -o-transition-property: height, opacity, transform;
+      transition-property: height, opacity, transform;
+      transition-property: height, opacity, transform, -webkit-transform;
+      -webkit-transition-delay: .1s, 0s, 0s;
+           -o-transition-delay: .1s, 0s, 0s;
+              transition-delay: .1s, 0s, 0s;
+      overflow: hidden;
+      will-change: height, opacity, transform;
+
+      h3 {
+        margin: 0 0 12px 0;
+        font-weight: 600;
+      }
+
+      .lines {
+        line-height: 30px;
+        font-weight: 100;
+
+        .icon {
+          margin-right: 6px;
+        }
+
+        .text {
+          margin-left: 0;
+        }
+      }
+    }
+
+    .contactPanelToggle {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      height: 35px;
+      cursor: pointer;
+      -webkit-transition: all .4s ease-in-out;
+      -o-transition: all .4s ease-in-out;
+      transition: all .4s ease-in-out;
+      color: rgba(
+                      red($text-base),
+                      green($text-base),
+                      blue($text-base),
+                      0.71
+      );
+      will-change: transform, background-color, color;
+
+      &:hover {
+        background: rgba(
+                        red($background-base),
+                        green($background-base),
+                        blue($background-base),
+                        0.43
+        );
+        color: rgba(
+                        red($text-base),
+                        green($text-base),
+                        blue($text-base),
+                        1
+        );
+      }
+
+      .icon {
+        -webkit-transition: all .6s ease-in-out;
+        -o-transition: all .6s ease-in-out;
+        transition: all .6s ease-in-out;
+        will-change: transform;
+      }
+    }
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: rgba(
+                    red($highlight-base),
+                    green($highlight-base),
+                    blue($highlight-base),
+                    0.1
+    );
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgba(
+                    red($background-base),
+                    green($background-base),
+                    blue($background-base),
+                    0.6
+    );
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(
+                    red($background-base),
+                    green($background-base),
+                    blue($background-base),
+                    0.8
+    );
+  }
+}
+
+@media all and (max-width: 768px) {
+  .App-header .link {
+    -webkit-box-flex: 1;
+        -ms-flex: 1 0 80%;
+            flex: 1 0 80%;
+  }
+}
+
+@-webkit-keyframes App-logo-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes App-logo-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}

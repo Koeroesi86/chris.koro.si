@@ -1,0 +1,42 @@
+$background-base: #222;
+$background-transition-duration: 2000ms;
+
+.Background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: $background-base center center no-repeat;
+  background-size: cover;
+  z-index: 0;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: $background-base;
+    opacity: 1;
+    -webkit-transition: opacity $background-transition-duration ease-in-out;
+    -o-transition: opacity $background-transition-duration ease-in-out;
+    transition: opacity $background-transition-duration ease-in-out;
+  }
+
+  &.loaded {
+    &::after {
+      opacity: 0;
+    }
+  }
+
+  .backgroundCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
