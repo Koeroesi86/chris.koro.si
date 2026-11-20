@@ -221,7 +221,7 @@ export class Background extends PureComponent<Partial<BackgroundProps>, Backgrou
         className={classNames(styles.Background, { [styles.loaded]: !!this.state.backgroundImage })}
         ref={this.component}
         style={{
-          backgroundImage: this.state.backgroundImage ? `url(${backgroundImage})` : undefined,
+          backgroundImage: this.state.backgroundImage ? `url(${JSON.stringify(backgroundImage)})` : undefined,
           opacity: canvasOpacity,
         }}
       >

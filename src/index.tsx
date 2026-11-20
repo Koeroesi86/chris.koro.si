@@ -2,7 +2,7 @@ import { createRoot } from 'react-dom/client';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faLinkedin, faSkype } from '@fortawesome/free-brands-svg-icons';
 import { App } from './components/app';
-import backgroundImage from './assets/images/bg.jpg';
+import backgroundImage from './assets/images/bg.svg';
 import { unregisterServiceWorker } from './unregister-service-worker';
 import './clients/default/index.scss';
 
