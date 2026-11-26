@@ -1,212 +1,206 @@
-$background-base: #000;
+$card-base: #0a0e20;
 $highlight-base: #fff;
 $text-base: #fff;
+$text-muted: #c9d0e6;
+$text-inverse: #0b1020;
 
 .App {
   position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  height: 100vh;
-  text-align: center;
-  overflow: hidden;
+  height: 100%;
+  padding: 32px 16px;
   overflow-y: auto;
+  color: $text-base;
+  text-align: center;
 
-  .header {
+  .card {
     position: relative;
     z-index: 10;
-    color: #fff;
-    text-shadow: 0 0 15px #000;
-    -webkit-backdrop-filter: blur(2px);
-            backdrop-filter: blur(2px);
-    background: rgba($background-base, 0.29);
-    border: 14px solid rgba($background-base, 0.13);
-    -webkit-box-shadow: 0 0 20px rgba($highlight-base, 0.3);
-            box-shadow: 0 0 20px rgba($highlight-base, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 460px;
+    /* Centres the card, and unlike align-items it stays scrollable when the card is taller than the screen. */
+    margin: auto;
+    padding: 40px 32px 24px;
+    border: 1px solid rgba($highlight-base, 0.14);
+    border-radius: 28px;
+    background: rgba($card-base, 0.55);
+    box-shadow: 0 30px 80px rgba(#000, 0.55);
+    -webkit-backdrop-filter: blur(24px) saturate(140%);
+    backdrop-filter: blur(24px) saturate(140%);
+  }
 
-    .imageMe {
-      width: 100px;
-      height: 100px;
-      margin-top: 20px;
-      border-radius: 50%;
-      border: 4px solid rgba($background-base, 0.4);
+  .imageMe {
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    box-shadow:
+      0 0 0 1px rgba($highlight-base, 0.35),
+      0 0 0 7px rgba($highlight-base, 0.07);
+  }
+
+  .heading {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .title {
+    margin: 0;
+    font-size: 34px;
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+
+  .intro {
+    margin: 0;
+    color: $text-muted;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .link {
+    display: flex;
+    flex: 1 1 160px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 48px;
+    border: 1px solid rgba($highlight-base, 0.22);
+    border-radius: 999px;
+    background: rgba($highlight-base, 0.08);
+    color: $text-base;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+      background-color 0.2s ease,
+      transform 0.2s ease;
+
+    &:hover {
+      background: rgba($highlight-base, 0.16);
+      transform: translateY(-1px);
     }
 
-    .headerTitle {
-      margin: 0 0 12px 0;
-      padding: 0 20px;
-      font-size: 60px;
-      font-weight: 100;
+    &:first-child {
+      border-color: $highlight-base;
+      background: $highlight-base;
+      color: $text-inverse;
     }
 
-    .headerIntro {
-      font-size: large;
-      margin: 0 0 12px 0;
-      padding: 0 20px;
-      font-weight: 100;
+    &:first-child:hover {
+      border-color: #dbe4ff;
+      background: #dbe4ff;
+    }
+  }
+
+  .contact {
+    width: 100%;
+    padding-top: 8px;
+    border-top: 1px solid rgba($highlight-base, 0.12);
+  }
+
+  .contactToggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    height: 44px;
+    border: 0;
+    border-radius: 12px;
+    background: transparent;
+    color: $text-muted;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: $text-base;
+    }
+  }
+
+  .chevron {
+    transition: transform 0.3s ease;
+  }
+
+  .contactDetails {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    /* Keeps the hidden links out of the tab order; switches after the collapse has finished. */
+    visibility: hidden;
+    transition:
+      grid-template-rows 0.3s ease,
+      opacity 0.3s ease,
+      visibility 0.3s;
+  }
+
+  .contactClip {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .contactList {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 8px 0 0;
+    padding: 8px;
+    border-radius: 16px;
+    background: rgba(#000, 0.3);
+    list-style: none;
+  }
+
+  .contactRow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 44px;
+    border-radius: 10px;
+    color: $text-muted;
+    font-size: 15px;
+    text-decoration: none;
+
+    &[href] {
+      color: $text-base;
+      transition: background-color 0.2s ease;
     }
 
-    .links {
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-orient: horizontal;
-      -webkit-box-direction: normal;
-          -ms-flex-direction: row;
-              flex-direction: row;
-      -webkit-box-pack: space-evenly;
-          -ms-flex-pack: space-evenly;
-              justify-content: space-evenly;
-      -ms-flex-wrap: wrap;
-          flex-wrap: wrap;
-      padding: 0 20px;
+    &[href]:hover {
+      background: rgba($highlight-base, 0.16);
     }
+  }
 
-    .link {
-      display: inline-block;
-      line-height: 45px;
-      height: 45px;
-      margin-top: 12px;
-      padding: 0 20px;
-      color: #fff;
-      text-decoration: none;
-      border: 2px solid rgba($highlight-base, 0.8);
-      -webkit-transition: all .2s ease-in-out;
-      -o-transition: all .2s ease-in-out;
-      transition: all .2s ease-in-out;
-
-      &:hover {
-        border-color: #ffffff;
-        background-color: rgba($highlight-base, 0.1);
-      }
-
-      img {
-        position: relative;
-        top: 1px;
-        display: inline-block;
-        margin-right: 12px;
-        height: 16px;
-        width: auto;
-      }
-
-      .icon {
-        margin-right: 12px;
-      }
-
-      .text {
-        margin-left: 0;
-      }
-    }
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid $highlight-base;
+    outline-offset: 3px;
   }
 
   &.contactOpen {
-    .contactPanel {
-      .contactPanelDetails {
-        height: 150px;
-        opacity: 1;
-        -webkit-transform: translateY(0);
-            -ms-transform: translateY(0);
-                transform: translateY(0);
-        transition-delay: 0s, .3s, 0s;
-      }
-
-      .contactPanelToggle {
-        .icon {
-          -webkit-transform: rotate(180deg);
-              -ms-transform: rotate(180deg);
-                  transform: rotate(180deg);
-        }
-      }
-    }
-  }
-
-  .contactPanel {
-    margin-top: 20px;
-
-    .contactPanelDetails {
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-orient: vertical;
-      -webkit-box-direction: normal;
-          -ms-flex-direction: column;
-              flex-direction: column;
-      -webkit-box-pack: center;
-          -ms-flex-pack: center;
-              justify-content: center;
-      height: 0;
-      opacity: 0;
-      -webkit-transform: translateY(100%);
-          -ms-transform: translateY(100%);
-              transform: translateY(100%);
-      -webkit-transform-origin: bottom;
-          -ms-transform-origin: bottom;
-              transform-origin: bottom;
-      transition-timing-function: cubic-bezier(0.65, 0.05, 0.36, 1);
-      transition-duration: .6s;
-      transition-property: height, opacity, transform;
-      transition-delay: .1s, 0s, .1s;
-      overflow: hidden;
-      will-change: height, opacity, transform;
-
-      h3 {
-        margin: 0 0 12px 0;
-        font-weight: 600;
-      }
-
-      .lines {
-        line-height: 30px;
-        font-weight: 100;
-
-        .icon {
-          margin-right: 6px;
-        }
-
-        .text {
-          margin-left: 0;
-        }
-
-        a {
-          color: inherit;
-        }
-      }
+    .contactDetails {
+      grid-template-rows: 1fr;
+      opacity: 1;
+      visibility: visible;
     }
 
-    .contactPanelToggle {
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-align: center;
-          -ms-flex-align: center;
-              align-items: center;
-      -webkit-box-pack: center;
-          -ms-flex-pack: center;
-              justify-content: center;
-      height: 35px;
-      cursor: pointer;
-      -webkit-transition: all .4s ease-in-out;
-      -o-transition: all .4s ease-in-out;
-      transition: all .4s ease-in-out;
-      color: rgba($text-base, 0.71);
-      will-change: transform, background-color, color;
-
-      &:hover {
-        background: rgba($background-base, 0.43);
-        color: rgba($text-base, 1);
-      }
-
-      .icon {
-        -webkit-transition: all .6s ease-in-out;
-        -o-transition: all .6s ease-in-out;
-        transition: all .6s ease-in-out;
-        will-change: transform;
-      }
+    .chevron {
+      transform: rotate(180deg);
     }
   }
 
@@ -221,41 +215,33 @@ $text-base: #fff;
 
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: rgba($background-base, 0.6);
+    background: rgba(#000, 0.6);
   }
 
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba($background-base, 0.8);
+    background: rgba(#000, 0.8);
   }
 }
 
-@media all and (max-width: 768px) {
-  .App-header .link {
-    -webkit-box-flex: 1;
-        -ms-flex: 1 0 80%;
-            flex: 1 0 80%;
+@media (prefers-reduced-motion: reduce) {
+  .App {
+    .link,
+    .chevron,
+    .contactDetails {
+      transition: none;
+    }
+
+    .link:hover {
+      transform: none;
+    }
   }
 }
 
-@-webkit-keyframes App-logo-spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
-}
-
-@keyframes App-logo-spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
+@media (max-width: 400px) {
+  .App {
+    .card {
+      padding: 32px 20px 20px;
+    }
   }
 }

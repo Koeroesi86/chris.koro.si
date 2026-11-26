@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { Background } from '../background';
 import me from '../../assets/images/me.jpg';
 import styles from './index.module.scss';
@@ -29,15 +29,17 @@ export interface AppProps {
 }
 
 export const App = ({ logos, hero, intro, links, contacts, backgroundImage }: AppProps) => {
-  const [contactOpen, setContactOpen] = useState(false);
+  const [contactOpen, setContactOpen] = useState(true);
 
   return (
     <div className={classNames(styles.App, { [styles.contactOpen]: contactOpen })}>
-      <Background imageAssets={logos} backgroundImage={backgroundImage} canvasOpacity={0.4} />
-      <header className={styles.header}>
-        <img src={me} className={styles.imageMe} alt="me" />
-        <h1 className={styles.headerTitle}>{hero}</h1>
-        <div className={styles.headerIntro}>{intro}</div>
+      <Background imageAssets={logos} backgroundImage={backgroundImage} canvasOpacity={0.55} />
+      <main className={styles.card}>
+        <img src={me} className={styles.imageMe} alt={hero} />
+        <div className={styles.heading}>
+          <h1 className={styles.title}>{hero}</h1>
+          <p className={styles.intro}>{intro}</p>
+        </div>
         <div className={styles.links}>
           {links.map((link) => (
             <a
@@ -47,34 +49,39 @@ export const App = ({ logos, hero, intro, links, contacts, backgroundImage }: Ap
               className={styles.link}
               key={`link-${link.href}`}
             >
-              <FontAwesomeIcon icon={link.icon} className={styles.icon} />
-              <span className={styles.text}>{link.text}</span>
+              <FontAwesomeIcon icon={link.icon} />
+              {link.text}
             </a>
           ))}
         </div>
-        <div className={styles.contactPanel}>
-          <div className={styles.contactPanelDetails}>
-            <h3>Contact me if you fancy</h3>
-            <div className={styles.lines}>
-              {contacts.map((contact, index) => (
-                <div key={`contact-${index}`}>
-                  <FontAwesomeIcon icon={contact.icon} className={styles.icon} />
-                  {contact.href ? (
-                    <a href={contact.href} className={styles.text}>
+        <div className={styles.contact}>
+          <button
+            type="button"
+            className={styles.contactToggle}
+            aria-expanded={contactOpen}
+            aria-controls="contact-details"
+            onClick={() => setContactOpen(!contactOpen)}
+          >
+            Contact me if you fancy
+            <FontAwesomeIcon icon={faChevronDown} className={styles.chevron} />
+          </button>
+          <div className={styles.contactDetails} id="contact-details">
+            <div className={styles.contactClip}>
+              <ul className={styles.contactList}>
+                {contacts.map((contact) => (
+                  <li key={`contact-${contact.text}`}>
+                    {/* Without an href the anchor is plain text: not focusable and not a link. */}
+                    <a href={contact.href} className={styles.contactRow}>
+                      <FontAwesomeIcon icon={contact.icon} />
                       {contact.text}
                     </a>
-                  ) : (
-                    <span className={styles.text}>{contact.text}</span>
-                  )}
-                </div>
-              ))}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
-          <div className={styles.contactPanelToggle} onClick={() => setContactOpen(!contactOpen)}>
-            <FontAwesomeIcon icon={faCaretDown} className={styles.icon} />
-          </div>
         </div>
-      </header>
+      </main>
     </div>
   );
 };
