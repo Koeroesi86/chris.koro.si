@@ -1,6 +1,6 @@
 import { createRoot } from 'react-dom/client';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import { faGithub, faLinkedin, faSkype } from '@fortawesome/free-brands-svg-icons';
+import { faEnvelope, faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { App } from './components/app';
 import backgroundImage from './assets/images/bg.svg';
 import { unregisterServiceWorker } from './unregister-service-worker';
@@ -16,8 +16,8 @@ const links = [
 ];
 
 const contacts = [
-  { icon: faEnvelope, text: 'koeroesi86@gmail.com' },
-  { icon: faSkype, text: 'koeroesi86' },
+  { icon: faEnvelope, text: 'chris@koro.si', href: 'mailto:chris@koro.si' },
+  { icon: faLocationDot, text: 'Budapest area, Hungary' },
 ];
 
 createRoot(document.getElementById('root')!).render(

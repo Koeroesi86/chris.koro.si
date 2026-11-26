@@ -16,6 +16,7 @@ export interface AppLink {
 export interface AppContact {
   icon: IconProp;
   text: string;
+  href?: string;
 }
 
 export interface AppProps {
@@ -58,7 +59,13 @@ export const App = ({ logos, hero, intro, links, contacts, backgroundImage }: Ap
               {contacts.map((contact, index) => (
                 <div key={`contact-${index}`}>
                   <FontAwesomeIcon icon={contact.icon} className={styles.icon} />
-                  <span className={styles.text}>{contact.text}</span>
+                  {contact.href ? (
+                    <a href={contact.href} className={styles.text}>
+                      {contact.text}
+                    </a>
+                  ) : (
+                    <span className={styles.text}>{contact.text}</span>
+                  )}
                 </div>
               ))}
             </div>
