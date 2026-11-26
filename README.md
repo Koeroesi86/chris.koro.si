@@ -18,7 +18,7 @@ Needs Node 24 (see `.nvmrc`).
 ```sh
 npm ci
 npm run dev        # Vite dev server with hot reload
-npm run build      # type check, then bundle to dist/
+npm run build      # type check, bundle to dist/, then prerender dist/index.html
 npm run serve      # serve dist/ on http://localhost:8080 the way the VPS does
 npm start          # build, then serve
 ```
@@ -27,12 +27,15 @@ npm start          # build, then serve
 
 ```
 src/
-  index.tsx                    entry: site data (links, contacts, logos), render
+  index.tsx                    browser entry: hydrates the prerendered page (renders from scratch in dev)
+  entry-server.tsx             build-time entry: page markup, meta tags and JSON-LD
+  site.ts                      site data (name, links, contacts, logos)
   components/app/              page layout and contact panel
   components/background/       canvas animation (bouncing logos) and background image
   clients/default/index.scss   global styles (reset, body, fonts)
   assets/                      fonts, images, and the 28 logo SVGs (assets/images/logos)
   unregister-service-worker.ts removes service workers from earlier versions
+scripts/prerender.mjs          writes the server-rendered markup into dist/index.html
 public/                        favicons and manifest.json, copied as-is
 index.html                     Vite entry page (head tags, analytics)
 serverConfig.js                node-webserver server definition used on the VPS (root: build)
