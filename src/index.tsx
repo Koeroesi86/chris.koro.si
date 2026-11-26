@@ -1,34 +1,22 @@
-import { createRoot } from 'react-dom/client';
-import { faEnvelope, faLocationDot } from '@fortawesome/free-solid-svg-icons';
-import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import { createRoot, hydrateRoot } from 'react-dom/client';
+import { config } from '@fortawesome/fontawesome-svg-core';
 import { App } from './components/app';
-import backgroundImage from './assets/images/bg.svg';
+import { appProps } from './site';
 import { unregisterServiceWorker } from './unregister-service-worker';
+import '@fortawesome/fontawesome-svg-core/styles.css';
 import './clients/default/index.scss';
 
-const logos = Object.values(
-  import.meta.glob<string>('./assets/images/logos/*.svg', { eager: true, query: '?url', import: 'default' })
-);
+// The icon styles are bundled above, so the prerendered icons are sized before any script runs.
+config.autoAddCss = false;
 
-const links = [
-  { href: 'https://github.com/Koeroesi86', icon: faGithub, text: 'GitHub' },
-  { href: 'https://www.linkedin.com/in/krisztiankorosi', icon: faLinkedin, text: 'LinkedIn' },
-];
+const root = document.getElementById('root')!;
+const app = <App {...appProps} />;
 
-const contacts = [
-  { icon: faEnvelope, text: 'chris@koro.si', href: 'mailto:chris@koro.si' },
-  { icon: faLocationDot, text: 'Budapest area, Hungary' },
-];
-
-createRoot(document.getElementById('root')!).render(
-  <App
-    logos={logos}
-    hero="Krisztian Korosi"
-    intro="Senior full-stack software engineer, and meh. Just Chris. :)"
-    links={links}
-    contacts={contacts}
-    backgroundImage={backgroundImage}
-  />
-);
+// The production build ships prerendered markup; the dev server starts with an empty root.
+if (root.hasChildNodes()) {
+  hydrateRoot(root, app);
+} else {
+  createRoot(root).render(app);
+}
 
 unregisterServiceWorker();
