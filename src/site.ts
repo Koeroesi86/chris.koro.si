@@ -4,7 +4,7 @@ import type { AppProps } from './components/app';
 import backgroundImage from './assets/images/bg.svg';
 
 export const url = 'https://chris.koro.si/';
-export const name = 'Krisztian Korosi';
+export const name = 'Krisztián Kőrösi';
 export const jobTitle = 'Senior full-stack software engineer';
 export const email = 'chris@koro.si';
 export const location = 'Budapest area, Hungary';

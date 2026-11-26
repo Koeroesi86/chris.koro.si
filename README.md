@@ -1,6 +1,6 @@
 # chris.koro.si
 
-Source of [chris.koro.si](https://chris.koro.si), the personal site of Krisztian Korosi: a single React page with a drifting logo canvas over a background image, link buttons and a collapsible contact panel.
+Source of [chris.koro.si](https://chris.koro.si), the personal site of Krisztián Kőrösi: a single React page with a drifting logo canvas over a background image, link buttons and a collapsible contact panel.
 
 The original source was lost and recreated from the deployed webpack bundle and its CSS sourcemap. It is now a Vite + TypeScript project.
 

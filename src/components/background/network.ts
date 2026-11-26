@@ -39,10 +39,10 @@ const EDGE_STIFFNESS = 0.002;
 /** Logos start turning away from an edge this many logo sizes before reaching it. */
 const EDGE_ZONE = 2;
 const EDGE_TURN = 0.15;
-const MAGNET_RADIUS = 220;
+const MAGNET_RADIUS = 260;
 /** Logos hover this far from the cursor: closer repels, farther attracts. */
 const MAGNET_HOLD = 70;
-const MAGNET_FORCE = 0.3;
+const MAGNET_FORCE = 0.6;
 
 export const createParticles = ({ width, height, margin }: Field, count: number): Particle[] =>
   Array.from({ length: count }, () => ({
